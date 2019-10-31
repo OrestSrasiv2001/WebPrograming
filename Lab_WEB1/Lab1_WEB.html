@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocation - Dive Into HTML5</title>
+    <style>
+        body {
+            max-width: 960px;
+            margin: 0 auto;
+            padding-bottom: 2em;
+        }
+
+        a {
+            color: brown;
+            text-decoration: none;
+            border-bottom: 1px dashed
+        }
+
+        h1 {
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-size: 250%;
+            line-height: 1.6;
+        }
+
+        p {
+            font-size: 110%;
+            line-height: 1.6;
+        }
+
+        br {
+            line-height: 1000px;
+        }
+
+        .photo {
+            float: left;
+        }
+
+        .text {
+            margin-left: 40px;
+        }
+
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th {
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        td {
+            border-collapse: collapse;
+        }
+
+        .took {
+            border: 1px solid;
+        }
+
+        .took th {
+            text-align: left;
+            font-weight: normal;
+        }
+
+        .took tr > th:first-child {
+            padding-left: 5px;
+        }
+
+        .ho th {
+            border-bottom: 1px solid;
+        }
+
+        .tortise {
+            background: #eee;
+        }
+
+        .border {
+            border-top-style: solid;
+            border-top-color: black;
+            border-top-width: 1px;
+
+            border-bottom-style: solid;
+            border-bottom-color: black;
+            border-bottom-width: 1px;
+
+            border-left-style: solid;
+            border-left-color: black;
+            border-left-width: 1px;
+
+            border-right-style: solid;
+            border-right-color: black;
+            border-right-width: 1px;
+        }
+
+        .border_next {
+            overflow: hidden;
+            background: black;
+            padding: 5px;
+            text-overflow: ellipsis;
+            color: aliceblue;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-size: 115%;
+        }
+    </style>
+    <br>
+    <p> You are here&#9658<a href="http://diveintohtml5.info/index.html">Home</a>&#9658<a
+            href="http://diveintohtml5.info/table-of-contents.html#geolocation">Dive Into HTML5</a></p>
+    <br>
+    <h1 align="center">№6</h1>
+    <h1 align="center">YOU ARE HERE</h1>
+    <h1 align="center">(AND SO IS EVERYBODY ELSE)</h1>
+    <p align="center"><a href="http://diveintohtml5.info/geolocation.html">show table of contents</a></p>
+    <p align="center"><img src="Снимок.PNG"></p>
+    <h1 align="center">DIVING IN</h1>
+    <p>Geolocation is the art of figuring out where you are in the world and (optionally) sharing that information withG
+        people you trust. There is more than one way to figure out where you are — your IP address, your wireless
+        network connection, which cell tower your phone is talking to, or dedicated GPS hardware that calculates
+        latitude and longitude from information sent by satellites in the sky.</p>
+    <br>
+    <p align="center"><img src="Снимок.PNG"></p>
+    <br>
+    <h1 align="center">THE GEOLOCATION API</h1>
+    <br>
+    <p>The <a href="https://www.w3.org/TR/geolocation-API/"> geolocation API </a>lets you share your location with
+        trusted web sites. The latitude and longitude are available to JavaScript
+        on the page, which in turn can send it back to the remote web server and do fancy location-aware things like
+        finding local
+        businesses or showing your location on a map.</p>
+    <br>
+    <p>As you can see from the following table, the geolocation API is supported by most browsers on the desktop and
+        mobile
+        devices. Additionally, some older browsers and devices can be supported by wrapper libraries, as we’ll see later
+        in this
+        chapter.</p>
+    <br>
+    <h3 align="center">GEOLOCATION API SUPPORT</h3>
+    <thead>
+    <tr>
+        <th title="Internet Explorer">IE</th>
+        <th title="Mozilla Firefox">Firefox</th>
+        <th title="Apple Safari">Safari</th>
+        <th title="Google Chrome">Chrome</th>
+        <th>Opera</th>
+        <th>iPhone</th>
+        <th>Android</th>
+    </tr>
+    </thead>
+    <p>Along with support for the standard geolocation API, there are a plethora of device-specific APIs on other mobile
+        platforms. I’ll cover all that later in this chapter.</p>
+    <br>
+    <p align="center"><img src="Снимок.PNG"></p>
+    <br>
+    <h2 align="center">SHOW ME THE CODE</h2>
+    <p>The geolocation API centers around a new property on the global navigator object: navigator.geolocation.</p>
+    <p>The simplest use of the geolocation API looks like this:</p>
+    <code>function get_location() {
+        <p>
+            <mark>navigator.geolocation.getCurrentPosition</mark>
+            (show_map);
+        <p>}</p></code> </p>
+    <br>
+    <p>That has no detection, no error handling, and no options. Your web application should probably include at least
+        the first two of those. To <a href="http://diveintohtml5.info/detect.html#geolocation">detect support for the
+            geolocation API</a>, you can use <a href="https://modernizr.com">Modernizr</a>:</p>
+    <br>
+    <code>function get_location() {
+        if (
+        <mark>Modernizr.geolocation</mark>
+        ) {
+        <p>navigator.geolocation.getCurrentPosition(show_map);</p>
+        <p>} else {</p>
+        // no native support; maybe try a fallback?
+        <p>}</p>
+        <p>}</p>
+    </code>
+    <br>
+    <p>What you do without geolocation support is up to you. I’ll explain the JavaScript fallback option in a minute,
+        but first I want to talk about what happens during that call to getCurrentPosition(). As<a
+                href="http://diveintohtml5.info/geolocation.html#divingin"> I mentioned at the beginning of this
+            chapter</a>,geolocation support is opt-in. That means your browser will never force you to reveal your
+        current physical location to a remote server. The user experience differs from browser to browser. In Mozilla
+        Firefox, calling the getCurrentPosition() function of the geolocation API will cause the browser to pop up an
+        “infobar” at the top of the browser window. The infobar looks like this:</p>
+    <br>
+    <p align="center"><img src="Снимок3.PNG"></p>
+    <br>
+    <p>There’s a lot going on here. You, as the end user,</p>
+    <br>
+    <ul>
+        <li>are told that a website wants to know your location
+        </li>
+        <li>are told <em>which</em> website wants to know your location
+        </li>
+        <li>can click through to <a href="http://www.mozilla.com/en-US/firefox/geolocation/">Mozilla’s “Location-Aware
+            Browsing” help page</a> which explains what the heck is going on (short story: Google provides the location
+            and stores your data in accordance with its <a href="http://www.google.com/intl/en/privacy/lsf.html">Location
+                Service Privacy Policy</a>)
+        </li>
+        <li>can choose to share your location
+        </li>
+        <li>can choose <em>not</em> to share your location
+        </li>
+        <li>can tell your browser to remember your choice (either way, share or don’t share) so you never see this
+            infobar again on this website
+        </li>
+    </ul>
+    <br>
+    <p>Furthermore, this infobar is</p>
+    <br>
+    <ul>
+        <li>non-modal, so it won’t prevent you from switching to another browser window or tab
+        </li>
+        <li>tab-specific, so it will disappear if you switch to another browser window or tab and reappear when you
+            switch back to the original tab
+        </li>
+        <li>unconditional, so there is no way for a website to bypass it
+        </li>
+        <li>blocking, so there is no chance that the website can determine your location while it’s waiting for your
+            answer
+        </li>
+    </ul>
+    <br>
+    <p>You just saw the JavaScript code that causes this infobar to appear. It’s a single function call which takes a
+        callback function (which I called show_map). The call to getCurrentPosition() will return immediately, but that
+        doesn’t mean that you have access to the user’s location. The first time you are guaranteed to have location
+        information is in the callback function. The callback function looks like this:</p>
+    <br>
+    <pre>
+        <code>function show_map(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  // let's show a map or do something interesting!
+  }</code>
+    </pre>
+    <br>
+    <p>The callback function will be called with a single parameter, an object with two properties: coords and
+        timestamp. The timestamp is just that, the date and time when the location was calculated. (Since this is all
+        happening asynchronously, you can’t really know when that will happen in advance. It might take some time for
+        the user to read the infobar and agree to share their location. Devices with dedicated GPS hardware may take
+        some more time to connect to a GPS satellite. And so on.) The coords object has properties like latitude and
+        longitude which are exactly what they sound like: the user’s physical location in the world.</p>
+    <br>
+    <h3 align="center">POSITION OBJECT</h3>
+    <br>
+    <table class="took">
+        <tbody>
+        <tr class="ho">
+            <th>Property</th>
+            <th>Type</th>
+            <th>Notes</th>
+        </tr>
+        <tr class="tortise">
+            <th>
+                <code>coords.latitude</code>
+            </th>
+            <td>double</td>
+            <td>decimal degrees</td>
+        </tr>
+        <tr></tr>
+        <th>
+            <code>coords.longitude</code>
+        </th>
+        <td>double</td>
+        <td>decimal degrees</td>
+        </tr>
+        <tr class="tortise">
+            <th>
+                <code>coords.altitude</code>
+            </th>
+            <td>"double or"
+                <code>null</code>
+            </td>
+            <td>
+                "meters above the"
+                <a href="https://en.wikipedia.org/wiki/Reference_ellipsoid">reference ellipsoid</a>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <code>coords.accuracy</code>
+            </th>
+            <td>double</td>
+            <td>meters
+            </td>
+        </tr>
+        <tr class="tortise">
+            <th>
+                <code>coords.altitudeAccuracy</code>
+            </th>
+            <td>
+                "double or "
+                <code>null</code>
+            </td>
+            <td>meters
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <code>coords.heading</code>
+            </th>
+            <td>
+                "double or "
+                <code>null</code>
+            </td>
+            <td>
+                "degrees clockwise from "
+                <a href="https://en.wikipedia.org/wiki/True_north">true north</a>
+            </td>
+        </tr>
+        <tr class="tortise">
+            <th>
+                <code>coords.speed</code>
+            </th>
+            <td>
+                "double or "
+                <code>null</code>
+            </td>
+            <td>meters/second
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <code>timestamp</code>
+            </th>
+            <td>DOMTimeStamp</td>
+            <td>
+                "like a "
+                <code>Date()</code>
+                " object
+                "
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <p>Only three of the properties are guaranteed to be there<img src="Cнимок5.png" align="right"> (coords.latitude,
+        coords.longitude, and coords.accuracy). The rest might come back null, depending on the capabilities of your
+        device and the backend positioning server that it talks to. The heading and speed properties are calculated
+        based on the user’s previous position, if possible.</p>
+    <br>
+    <p align="center"><img src="Снимок.PNG"></p>
+
+    <h4>This has been “You Are Here (And So Is Everybody Else).” The <a
+            href="http://diveintohtml5.info/table-of-contents.html"> full table of contents</a>has more if you’d like to
+        keep reading.</h4>
+    <div class="border">
+        <div class="border_next">DID YOU KNOW?</div>
+        <div class="other_other_other_text">
+            <p>In association with Google Press, O’Reilly is distributing this book in a variety of
+                <img src="Снимок6.png."
+                     align="right"
+                     width="222"
+                     height="272"></p>
+            <p>formats, including paper, ePub, Mobi, and DRM-free PDF. The paid edition is called
+                “HTML5: Up & Running,” and it is available now. This chapter is included in the paid
+                edition.</p>
+            <br>
+            <p>If you liked this chapter and want to show your appreciation, you can <a
+                    href="https://www.amazon.com/HTML5-Up-Running-Mark-Pilgrim/dp/0596806027?ie=UTF8&tag=diveintomark-20&creativeASIN=0596806027">buy
+                “HTML5: UP
+                & Running” with this affiliate link </a> or <a href="dfg">buy an electronic edition directly from
+                O’Reilly</a>. </p>
+            <p>You’ll get a book, and I’ll get a buck. I do not currently accept direct donations.</p>
+            <br>
+        </div>
+    </div>
+
+
+    </tbody>
+    </table>
+    </body>
+</head>
+</html>
