@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+body {
+  background: url("MIYAGI.jpg");
+  background-size: 100%;
+  background-attachment: fixed;
+}
+.dropdown:hover .dropdown-child {
+  display: block;
+}
+
+a{
+  background: darkgray;
+}
+td {
+  vertical-align: middle;
+  padding: 50px;
+  font-size: 40px;
+  text-align: center;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+}
+tr {
+  padding: 20px 25px 27px;
+  background: silver;
+  border-right: 2px solid;
+  font-size: 0.9em;
+}
+table{
+  border-spacing: 40px 1px;
+  font-family: 'Open Sans', sans-serif;
+  max-width: 30%;
+  padding-bottom: 21em;
+  display: inline-flex;
+  margin: 0;
+  width:450px;
+  height:240px;
+}
+
+.table{
+  padding: 0% 0% 10% 10%;
+}
+.text{
+  font-size: 85%;
+}
+.outher{
+  font-size: 200%;
+}
+.container{
+  background-color: silver;
+}
+.navbar.navbar-1 .navbar-toggler-icon {
+  background-image: url('https://mdbootstrap.com/img/svg/hamburger6.svg?color=000');
+}
+.nav-item{
+  width: auto;
+
+}
+.footer {
+  background: #f2f2f2;
+  height: 68px;
+  padding: 10px 0 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  font-size: 13px;
+  line-height: 10px;
+  position: relative;
+  background: silver;
+  flex: 0 0 auto;
+}
+.footer p{
+  line-height: 1;
+}
+h1{
+  font-size: 15px;
+}
+li, .dropdown {
+  font-size: 90%;
+  padding: 1rem 3rem 1.15rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  min-width: 1%;
+  margin: auto;
+  padding: 10px;
+}
