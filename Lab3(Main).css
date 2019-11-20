@@ -1,0 +1,54 @@
+
+h3 {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 100%;
+    line-height: 1.6;
+    color: aliceblue;
+}
+body {
+    background: url("MIYAGI.jpg");
+    background-size: 110%;
+    background-attachment: fixed;
+
+}
+
+li, .dropdown {
+    font-size: 90%;
+    padding: 1rem 3rem 1.15rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: white;
+    min-width: 1%;
+    margin: auto;
+    padding: 10px;
+}
+.navbar.navbar-1 .navbar-toggler-icon {
+    background-image: url('https://mdbootstrap.com/img/svg/hamburger6.svg?color=000');
+}
+
+.nav-item{
+    width: auto;
+
+}
+a {
+    background:darkgray;
+}
+.container{
+    background-color: silver;
+}
+.footer {
+    background: #f2f2f2;
+    height: 68px;
+    padding: 10px 0 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    font-size: 15px;
+    line-height: 14px;
+    position: relative;
+    background: silver;
+}
+.footer p{
+    line-height: 1;
+}
